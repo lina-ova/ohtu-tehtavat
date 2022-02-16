@@ -7,6 +7,12 @@ class Ostoskori:
         self.kori=[]
 
         # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
+    def etsi_tuote_korista(self, nimi):
+        index=None
+        for i in range(len(self.kori)):
+            if self.kori[i].tuotteen_nimi()==nimi:
+                index=i
+        return index
 
     def tavaroita_korissa(self):
         maara=0
@@ -25,10 +31,7 @@ class Ostoskori:
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
 
     def lisaa_tuote(self, lisattava: Tuote):
-        index=None
-        for i in range(len(self.kori)):
-            if self.kori[i].tuotteen_nimi()==lisattava.nimi():
-                index=i
+        index=self.etsi_tuote_korista(lisattava.nimi())
 
         if index!=None:
             self.kori[index].muuta_lukumaaraa(1)
@@ -37,8 +40,11 @@ class Ostoskori:
             self.kori.append(ostos)
 
     def poista_tuote(self, poistettava: Tuote):
-        # poistaa tuotteen
-        pass
+        index=self.etsi_tuote_korista(poistettava.nimi())
+        self.kori[index].muuta_lukumaaraa(-1)
+        if self.kori[index].lukumaara()==0:
+            self.kori.remove(self.kori[index])
+        
 
     def tyhjenna(self):
         pass
