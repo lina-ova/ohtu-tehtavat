@@ -38,6 +38,12 @@ class Ostoskori:
         # tyhjentää ostoskorin
 
     def ostokset(self):
-        pass
+        kori=[]
+        for ostos in self.kori:
+            nimi=ostos.tuotteen_nimi()
+            maara=ostos.lukumaara()
+            kuvaus = nimi + str(maara)
+            kori.append(kuvaus)
+        return kori
         # palauttaa listan jossa on korissa olevat ostos-oliot
         # kukin ostos-olio siis kertoo mistä tuotteesta on kyse JA kuinka monta kappaletta kyseistä tuotetta korissa on
